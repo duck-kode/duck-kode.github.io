@@ -71,7 +71,7 @@ export function Hero() {
                                 className="gap-2 bg-transparent transition-all duration-300 hover:scale-105 hover:border-blue-500/50 hover:bg-blue-500/10"
                             >
                                 <a
-                                    href="https://drive.google.com/file/d/1DxuSXWW2D4zpuVxcBz5TMtxMmlbEv5SF/view?usp=drive_link"
+                                    href="https://drive.google.com/file/d/1ndrqh7fKsXt1ZvlzAUhNqas-YWkjXbGU/view?usp=drive_link"
                                     download
                                 >
                                     <Download className="h-4 w-4" />
@@ -82,7 +82,7 @@ export function Hero() {
 
                         <div className="animate-fadeInUp flex items-center gap-6 pt-4 opacity-0 delay-300">
                             <a
-                                href="https://github.com"
+                                href="https://github.com/undefinedtag/"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-muted-foreground transition-all duration-300 hover:scale-125 hover:text-blue-500"
@@ -90,7 +90,7 @@ export function Hero() {
                                 <Github className="h-6 w-6" />
                             </a>
                             <a
-                                href="https://linkedin.com"
+                                href="www.linkedin.com/in/mark-francis-galan/"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-muted-foreground transition-all duration-300 hover:scale-125 hover:text-blue-500"
@@ -98,7 +98,7 @@ export function Hero() {
                                 <Linkedin className="h-6 w-6" />
                             </a>
                             <a
-                                href="mailto:mark@example.com"
+                                href="mailto:francisgalan21@gmail.com"
                                 className="text-muted-foreground transition-all duration-300 hover:scale-125 hover:text-blue-500"
                             >
                                 <Mail className="h-6 w-6" />
