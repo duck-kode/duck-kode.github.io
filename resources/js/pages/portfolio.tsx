@@ -63,12 +63,6 @@ export default function Portfolio() {
 
                         <div className="hidden md:flex items-center gap-8">
                             <a
-                                href="#about"
-                                className="text-sm text-muted-foreground hover:text-foreground hover:scale-110 transition-all duration-300"
-                            >
-                                About
-                            </a>
-                            <a
                                 href="#projects"
                                 className="text-sm text-muted-foreground hover:text-foreground hover:scale-110 transition-all duration-300"
                             >
@@ -140,7 +134,7 @@ export default function Portfolio() {
                                 <Github className="h-5 w-5" />
                             </a>
                             <a
-                                href="https://www.linkedin.com/in/mark-francis-galan-3bb21228b/"
+                                href="https://www.linkedin.com/in/mark-francis-galan/"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-muted-foreground hover:text-foreground hover:scale-125 hover:rotate-12 transition-all duration-300"
