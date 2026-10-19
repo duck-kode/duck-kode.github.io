@@ -12,6 +12,8 @@
         'Instrument Sans', ui-sans-serif, system-ui, sans-serif,
         'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
         'Noto Color Emoji';
+    --font-display: 'Syne', ui-sans-serif, system-ui, sans-serif;
+    --font-body: 'Outfit', ui-sans-serif, system-ui, sans-serif;
     /*--font-sans: var(--font-montserrat), system-ui, sans-serif;*/
     /*--font-heading: var(--font-poppins), system-ui, sans-serif;*/
 
@@ -598,5 +600,256 @@
     }
     .animate-rotate-slow {
         animation: rotate-slow 20s linear infinite;
+    }
+}
+
+/* Portfolio */
+.folio {
+    --folio-bg: #090909;
+    --folio-surface: #141414;
+    --folio-ink: #f4f1ea;
+    --folio-muted: #a39e93;
+    --folio-line: rgba(244, 241, 234, 0.14);
+    --folio-accent: #e6b15a;
+    --folio-accent-ink: #1a1408;
+    background-color: var(--folio-bg);
+    background-image: radial-gradient(
+        520px circle at var(--mx, 70%) var(--my, 18%),
+        color-mix(in srgb, var(--folio-accent) 16%, transparent),
+        transparent 58%
+    );
+    background-attachment: fixed;
+    color: var(--folio-ink);
+    color-scheme: dark;
+    font-family: var(--font-body);
+}
+
+.folio.folio-light {
+    --folio-bg: #f4f1ea;
+    --folio-surface: #fffdf8;
+    --folio-ink: #141311;
+    --folio-muted: #5e584f;
+    --folio-line: rgba(20, 19, 17, 0.12);
+    --folio-accent: #9a6a16;
+    --folio-accent-ink: #fffdf8;
+    color-scheme: light;
+}
+
+.folio :is(h1, h2, h3, h4) {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.045em;
+}
+
+.folio ::selection {
+    background: var(--folio-accent);
+    color: var(--folio-accent-ink);
+}
+
+.folio-grid {
+    background-image:
+        linear-gradient(to right, var(--folio-line) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--folio-line) 1px, transparent 1px);
+    background-size: 80px 80px;
+    mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%);
+}
+
+@keyframes folio-rise {
+    from {
+        opacity: 0;
+        transform: translateY(110%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes folio-fade {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes folio-ken {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.07);
+    }
+}
+
+@keyframes folio-marquee {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes folio-orbit {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes folio-slot {
+    from {
+        opacity: 0;
+        transform: translateY(75%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes folio-stamp {
+    0% {
+        opacity: 0;
+        transform: scale(1.45) rotate(-28deg);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(-8deg);
+    }
+}
+
+@keyframes folio-float {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+@keyframes folio-route {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes folio-dot {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.35;
+    }
+}
+
+@keyframes folio-unveil {
+    from {
+        clip-path: inset(8% 8% 8% 8% round 1.6rem);
+    }
+    to {
+        clip-path: inset(0 round 1.6rem);
+    }
+}
+
+@keyframes folio-counter {
+    to {
+        transform: rotate(-360deg);
+    }
+}
+
+.folio-rise-in {
+    animation: folio-fade 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.folio-line {
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 1.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.folio-line.is-in {
+    transform: scaleY(1);
+}
+
+.folio-marquee {
+    animation: folio-marquee 36s linear infinite;
+}
+
+.folio-marquee:hover {
+    animation-play-state: paused;
+}
+
+.folio-magnetic {
+    transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.folio-tilt {
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    transform-style: preserve-3d;
+}
+
+.folio-stamp {
+    animation: folio-stamp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.folio-float {
+    animation: folio-float 5.5s ease-in-out infinite;
+}
+
+.folio-route {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+}
+
+.folio-route.is-drawn {
+    animation: folio-route 2.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.folio-ping-dot {
+    animation: folio-dot 1.8s ease-in-out 2.2s infinite;
+}
+
+.folio-unveil {
+    animation: folio-unveil 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.folio-sheen {
+    position: relative;
+    overflow: hidden;
+}
+
+.folio-sheen::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        110deg,
+        transparent 32%,
+        rgba(255, 255, 255, 0.22) 48%,
+        transparent 64%
+    );
+    transform: translateX(-130%);
+    pointer-events: none;
+}
+
+.group:hover .folio-sheen::after {
+    transform: translateX(130%);
+    transition: transform 0.9s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .folio *,
+    .folio *::before,
+    .folio *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
     }
 }

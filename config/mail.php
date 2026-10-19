@@ -113,4 +113,9 @@ return [
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
+    'contact' => [
+        'address' => env('MAIL_CONTACT_ADDRESS', 'francisgalan21@gmail.com'),
+        'formsubmit' => env('MAIL_FORMSUBMIT_ID', '03947b0533d6f6fb996801b304ab4d44'),
+    ],
+
 ];
