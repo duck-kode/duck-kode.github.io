@@ -1,13 +1,17 @@
 import { SectionIntro } from '@/components/portfolio/section-intro';
 import { useInView } from '@/components/portfolio/use-in-view';
+import { SharedData } from '@/types';
+import { usePage } from '@inertiajs/react';
 import { Github, Linkedin, Mail, MapPin, Phone } from 'lucide-react';
 import { FormEvent, useState } from 'react';
+
+const inbox = 'francisgalan21@gmail.com';
 
 const channels = [
     {
         label: 'Email',
-        value: 'francisgalan21@gmail.com',
-        href: 'mailto:francisgalan21@gmail.com',
+        value: inbox,
+        href: `mailto:${inbox}`,
         icon: Mail,
     },
     {
@@ -26,6 +30,7 @@ const channels = [
 ];
 
 export function Contact() {
+    const { contactFormId } = usePage<SharedData>().props;
     const { ref, shown } = useInView<HTMLDivElement>(0.2);
     const [form, setForm] = useState({
         name: '',
@@ -60,42 +65,57 @@ export function Contact() {
             return;
         }
 
-        const token = decodeURIComponent(
-            document.cookie.match(/(?:^|;\s*)XSRF-TOKEN=([^;]*)/)?.[1] ?? '',
-        );
+        if (form.website.trim() !== '') {
+            setForm({ name: '', email: '', message: '', website: '' });
+            setSent(true);
+
+            return;
+        }
 
         setSending(true);
 
         try {
-            const response = await fetch('/email', {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest',
-                    'X-XSRF-TOKEN': token,
+            const response = await fetch(
+                `https://formsubmit.co/ajax/${encodeURIComponent(contactFormId)}`,
+                {
+                    method: 'POST',
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        name: form.name.trim(),
+                        email: form.email.trim(),
+                        _replyto: form.email.trim(),
+                        message: form.message.trim(),
+                        _subject: `Portfolio inquiry from ${form.name.trim()}`,
+                        _template: 'table',
+                        _captcha: 'false',
+                    }),
                 },
-                body: JSON.stringify(form),
-            });
+            );
             const payload = (await response.json()) as {
+                success?: boolean | string;
                 message?: string;
-                errors?: Record<string, string[]>;
             };
+            const providerMessage = (payload.message ?? '').toLowerCase();
+            const accepted =
+                payload.success === true || payload.success === 'true';
 
-            if (response.status === 422 && payload.errors) {
-                setErrors({
-                    name: payload.errors.name?.[0] ?? '',
-                    email: payload.errors.email?.[0] ?? '',
-                    message: payload.errors.message?.[0] ?? '',
-                });
+            if (
+                providerMessage.includes('activat') ||
+                providerMessage.includes('confirm')
+            ) {
+                setFailure(
+                    `Check ${inbox} for a confirmation email, open it, then send this message again.`,
+                );
 
                 return;
             }
 
-            if (!response.ok) {
+            if (!response.ok || !accepted) {
                 setFailure(
-                    payload.message ??
-                        'The message could not be sent. Email francisgalan21@gmail.com directly.',
+                    `The message could not be sent. Email ${inbox} directly.`,
                 );
 
                 return;
@@ -105,7 +125,7 @@ export function Contact() {
             setSent(true);
         } catch {
             setFailure(
-                'The message could not be sent. Email francisgalan21@gmail.com directly.',
+                `The message could not be sent. Email ${inbox} directly.`,
             );
         } finally {
             setSending(false);
